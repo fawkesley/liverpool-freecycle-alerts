@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from twilio.rest import TwilioRestClient
 
 APP = Flask(__name__)
@@ -9,6 +9,11 @@ APP = Flask(__name__)
 @APP.route('/_status/', methods=['GET'])
 def status():
     return jsonify({'message': 'All systems go.'})
+
+
+@APP.route('/cloudmailin/echo/', methods=['POST'])
+def cloudmailin_echo():
+    return make_response(request.data), 503
 
 
 @APP.route('/cloudmailin/', methods=['POST'])

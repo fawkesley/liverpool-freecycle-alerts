@@ -25,6 +25,22 @@ class AlerterTestCase(unittest.TestCase):
             {'message': 'All systems go.'},
             json.loads(response.data))
 
+    def test_cloudmailin_echo_endpoint_echoes_content_back(self):
+        response = self.app.post(
+            '/cloudmailin/echo/',
+            data=self.sample_json,
+            content_type='application/json')
+        assert_equal(self.sample_json, response.data)
+
+    def test_cloudmailin_echo_endpoint_returns_503_service_unavailable(self):
+        # This is so that messages get marked as "delayed" and are retried
+        # later, rather than bouncing.
+        response = self.app.post(
+            '/cloudmailin/echo/',
+            data=self.sample_json,
+            content_type='application/json')
+        assert_equal(503, response.status_code)
+
     def test_post_json_no_match(self):
         os.environ['SEARCH_KEYWORDS'] = 'not-a-matching-keyword'
         response = self.app.post(
