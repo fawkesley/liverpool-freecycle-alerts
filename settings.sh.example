@@ -1,0 +1,10 @@
+# Get these from https://www.twilio.com/user/account/
+export TWILIO_SID=""
+export TWILIO_AUTH_TOKEN=""
+
+# Get from https://www.twilio.com/user/account/phone-numbers/incoming
+export TWILIO_FROM_NUMBER="+447700000000"
+
+# The number to send SMS alerts to
+export ALERT_NUMBER="+447700000000"
+export SEARCH_KEYWORDS="test"
